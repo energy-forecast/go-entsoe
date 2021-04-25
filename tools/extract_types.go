@@ -263,7 +263,7 @@ func main() {
 	}
 	log.Info("Run zek...")
 
-	genTypeFile := filepath.Join("..", GEN_GO_TYPES_FILE)
+	genTypeFile := GEN_GO_TYPES_FILE
 	if _, err := os.Stat(genTypeFile); err == nil {
 		os.Remove(GEN_GO_TYPES_FILE)
 	}

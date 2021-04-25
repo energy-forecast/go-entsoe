@@ -10,9 +10,17 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
 	"strconv"
 	"time"
 )
+
+type JSONTime time.Time
+
+func (t JSONTime) MarshalJSON() ([]byte, error) {
+	stamp := fmt.Sprintf("\"%s\"", time.Time(t).UTC().Format(time.RFC3339))
+	return []byte(stamp), nil
+}
 
 type PsrType string
 
@@ -934,4 +942,135 @@ func (c *EntsoeClient) sendRequest(paramStr string) ([]byte, error) {
 		return nil, err
 	}
 	return bodyBytes, nil
+}
+
+func (c *EntsoeClient) ConvertGlMarketDocument2Map(r *GLMarketDocument) map[JSONTime]int64 {
+
+	res := make(map[JSONTime]int64)
+
+	for _, timeSeries := range r.TimeSeries {
+		if timeSeries.InBiddingZoneDomainMRID.Text == "" {
+			continue
+		}
+
+		period := timeSeries.Period
+
+		timeIntervalStart, err := time.Parse("2006-01-02T15:04Z", period.TimeInterval.Start)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		t := timeIntervalStart
+		points := period.Point
+		for _, point := range points {
+			quantity, _ := strconv.ParseInt(point.Quantity, 10, 64)
+			res[JSONTime(t)] = quantity
+			switch period.Resolution {
+			case "PT15M":
+				t = t.Add(15 * time.Minute)
+			case "PT30M":
+				t = t.Add(30 * time.Minute)
+			case "PT60M":
+				t = t.Add(60 * time.Minute)
+			case "P1D":
+				t = t.AddDate(0, 0, 1)
+			case "P7D":
+				t = t.AddDate(0, 0, 7)
+			case "P1Y":
+				t = t.AddDate(1, 0, 0)
+			}
+		}
+	}
+
+	return res
+}
+
+func (c *EntsoeClient) ConvertGlMarketDocument2Map2(r *GLMarketDocument) map[JSONTime]int64 {
+
+	res := make(map[JSONTime]int64)
+
+	for _, timeSeries := range r.TimeSeries {
+		period := timeSeries.Period
+
+		timeIntervalStart, err := time.Parse("2006-01-02T15:04Z", period.TimeInterval.Start)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		t := timeIntervalStart
+		points := period.Point
+		for _, point := range points {
+			quantity, _ := strconv.ParseInt(point.Quantity, 10, 64)
+			res[JSONTime(t)] = quantity
+			switch period.Resolution {
+			case "PT15M":
+				t = t.Add(15 * time.Minute)
+			case "PT30M":
+				t = t.Add(30 * time.Minute)
+			case "PT60M":
+				t = t.Add(60 * time.Minute)
+			case "P1D":
+				t = t.AddDate(0, 0, 1)
+			case "P7D":
+				t = t.AddDate(0, 0, 7)
+			case "P1Y":
+				t = t.AddDate(1, 0, 0)
+			}
+		}
+	}
+
+	return res
+}
+
+func (c *EntsoeClient) PopulateMap(r *GLMarketDocument, skipMode bool, res map[time.Time]int64) {
+
+	for _, timeSeries := range r.TimeSeries {
+		if skipMode && timeSeries.InBiddingZoneDomainMRID.Text == "" {
+			continue
+		}
+
+		period := timeSeries.Period
+
+		timeIntervalStart, err := time.Parse("2006-01-02T15:04Z", period.TimeInterval.Start)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		t := timeIntervalStart
+		points := period.Point
+		for _, point := range points {
+			quantity, _ := strconv.ParseInt(point.Quantity, 10, 64)
+			res[t] = quantity
+			switch period.Resolution {
+			case "PT15M":
+				t = t.Add(15 * time.Minute)
+			case "PT30M":
+				t = t.Add(30 * time.Minute)
+			case "PT60M":
+				t = t.Add(60 * time.Minute)
+			case "P1D":
+				t = t.AddDate(0, 0, 1)
+			case "P7D":
+				t = t.AddDate(0, 0, 7)
+			case "P1Y":
+				t = t.AddDate(1, 0, 0)
+			}
+		}
+	}
+}
+
+func GetSortedTimes(res map[JSONTime]int64) []JSONTime {
+	timeSlice := make([]JSONTime, len(res))
+	i := 0
+	for k := range res {
+		timeSlice[i] = k
+		i++
+	}
+	sort.Slice(timeSlice, func(i, j int) bool {
+		x := time.Time(timeSlice[i])
+		y := time.Time(timeSlice[j])
+		return x.Before(y)
+	})
+
+	return timeSlice
 }

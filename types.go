@@ -2,64 +2,11 @@ package goentsoe
 
 import "encoding/xml"
 
-type TransmissionNetworkMarketDocument struct {
-	XMLName                     xml.Name `xml:"TransmissionNetwork_MarketDocument"`
-	Text                        string   `xml:",chardata"`
-	Xmlns                       string   `xml:"xmlns,attr"`
-	MRID                        string   `xml:"mRID"`                // 792709571696419ab4cbb2dfa...
-	RevisionNumber              string   `xml:"revisionNumber"`      // 1
-	Type                        string   `xml:"type"`                // A92
-	ProcessProcessType          string   `xml:"process.processType"` // A16
-	CreatedDateTime             string   `xml:"createdDateTime"`     // 2020-08-08T19:54:43Z
-	SenderMarketParticipantMRID struct {
-		Text         string `xml:",chardata"` // 10X1001A1001A450
-		CodingScheme string `xml:"codingScheme,attr"`
-	} `xml:"sender_MarketParticipant.mRID"`
-	SenderMarketParticipantMarketRoleType string `xml:"sender_MarketParticipant.marketRole.type"` // A32
-	ReceiverMarketParticipantMRID         struct {
-		Text         string `xml:",chardata"` // 10X1001A1001A450
-		CodingScheme string `xml:"codingScheme,attr"`
-	} `xml:"receiver_MarketParticipant.mRID"`
-	ReceiverMarketParticipantMarketRoleType string `xml:"receiver_MarketParticipant.marketRole.type"` // A33
-	PeriodTimeInterval                      struct {
-		Text  string `xml:",chardata"`
-		Start string `xml:"start"` // 2016-01-01T00:00Z
-		End   string `xml:"end"`   // 2017-01-01T00:00Z
-	} `xml:"period.timeInterval"`
-	TimeSeries []struct {
-		Text         string `xml:",chardata"`
-		MRID         string `xml:"mRID"`         // 1, 2, 3, 4, 5, 6, 7, 8, 9...
-		BusinessType string `xml:"businessType"` // B03, B03, B03, B03, B03, ...
-		InDomainMRID struct {
-			Text         string `xml:",chardata"` // 10YCZ-CEPS-----N, 10YCZ-C...
-			CodingScheme string `xml:"codingScheme,attr"`
-		} `xml:"in_Domain.mRID"`
-		OutDomainMRID struct {
-			Text         string `xml:",chardata"` // 10YCZ-CEPS-----N, 10YCZ-C...
-			CodingScheme string `xml:"codingScheme,attr"`
-		} `xml:"out_Domain.mRID"`
-		CurveType string `xml:"curveType"` // A01, A01, A01, A01, A01, ...
-		Period    struct {
-			Text         string `xml:",chardata"`
-			TimeInterval struct {
-				Text  string `xml:",chardata"`
-				Start string `xml:"start"` // 2016-01-01T00:00Z, 2016-0...
-				End   string `xml:"end"`   // 2016-02-01T00:00Z, 2016-0...
-			} `xml:"timeInterval"`
-			Resolution string `xml:"resolution"` // P1M, P1M, P1M, P1M, P1M, ...
-			Point      struct {
-				Text     string `xml:",chardata"`
-				Position string `xml:"position"` // 1, 1, 1, 1, 1, 1, 1, 1, 1...
-			} `xml:"Point"`
-		} `xml:"Period"`
-	} `xml:"TimeSeries"`
-}
-
 type BalancingMarketDocument struct {
 	XMLName                     xml.Name `xml:"Balancing_MarketDocument"`
 	Text                        string   `xml:",chardata"`
 	Xmlns                       string   `xml:"xmlns,attr"`
-	MRID                        string   `xml:"mRID"`                // 267de175a6e8476882c72c380...
+	MRID                        string   `xml:"mRID"`                // 623e96582b1a4f98af7032228...
 	RevisionNumber              string   `xml:"revisionNumber"`      // 1, 1, 1, 1, 1, 1, 1, 1, 1...
 	Type                        string   `xml:"type"`                // A86, A85, A86, A86, A87, ...
 	ProcessProcessType          string   `xml:"process.processType"` // A16, A16, A16, A16, A16, ...
@@ -73,7 +20,7 @@ type BalancingMarketDocument struct {
 		CodingScheme string `xml:"codingScheme,attr"`
 	} `xml:"receiver_MarketParticipant.mRID"`
 	ReceiverMarketParticipantMarketRoleType string `xml:"receiver_MarketParticipant.marketRole.type"` // A33, A33, A33, A33, A33, ...
-	CreatedDateTime                         string `xml:"createdDateTime"`                            // 2020-08-08T19:54:50Z, 202...
+	CreatedDateTime                         string `xml:"createdDateTime"`                            // 2020-09-12T00:13:39Z, 202...
 	AreaDomainMRID                          struct {
 		Text         string `xml:",chardata"` // 10YCZ-CEPS-----N, 10YAT-A...
 		CodingScheme string `xml:"codingScheme,attr"`
@@ -207,7 +154,7 @@ type GLMarketDocument struct {
 	XMLName                     xml.Name `xml:"GL_MarketDocument"`
 	Text                        string   `xml:",chardata"`
 	Xmlns                       string   `xml:"xmlns,attr"`
-	MRID                        string   `xml:"mRID"`                // 04930bc57afa4a71b474d7a51...
+	MRID                        string   `xml:"mRID"`                // ed7acd8a6d784b7ab2a703950...
 	RevisionNumber              string   `xml:"revisionNumber"`      // 1, 1, 1, 1, 1, 1, 1, 1, 1...
 	Type                        string   `xml:"type"`                // A65, A65, A65, A65, A65, ...
 	ProcessProcessType          string   `xml:"process.processType"` // A16, A01, A31, A32, A33, ...
@@ -221,7 +168,7 @@ type GLMarketDocument struct {
 		CodingScheme string `xml:"codingScheme,attr"`
 	} `xml:"receiver_MarketParticipant.mRID"`
 	ReceiverMarketParticipantMarketRoleType string `xml:"receiver_MarketParticipant.marketRole.type"` // A33, A33, A33, A33, A33, ...
-	CreatedDateTime                         string `xml:"createdDateTime"`                            // 2020-08-08T19:54:20Z, 202...
+	CreatedDateTime                         string `xml:"createdDateTime"`                            // 2020-09-12T00:13:12Z, 202...
 	TimePeriodTimeInterval                  struct {
 		Text  string `xml:",chardata"`
 		Start string `xml:"start"` // 2015-12-31T23:00Z, 2015-1...
@@ -284,8 +231,8 @@ type AcknowledgementMarketDocument struct {
 	XMLName                     xml.Name `xml:"Acknowledgement_MarketDocument"`
 	Text                        string   `xml:",chardata"`
 	Xmlns                       string   `xml:"xmlns,attr"`
-	MRID                        string   `xml:"mRID"`            // 281cd746-add3-4, 39345301...
-	CreatedDateTime             string   `xml:"createdDateTime"` // 2020-08-08T19:54:23Z, 202...
+	MRID                        string   `xml:"mRID"`            // 71a6d596-0e01-4, 66ff98cd...
+	CreatedDateTime             string   `xml:"createdDateTime"` // 2020-09-12T00:13:14Z, 202...
 	SenderMarketParticipantMRID struct {
 		Text         string `xml:",chardata"` // 10X1001A1001A450, 10X1001...
 		CodingScheme string `xml:"codingScheme,attr"`
@@ -296,7 +243,7 @@ type AcknowledgementMarketDocument struct {
 		CodingScheme string `xml:"codingScheme,attr"`
 	} `xml:"receiver_MarketParticipant.mRID"`
 	ReceiverMarketParticipantMarketRoleType string `xml:"receiver_MarketParticipant.marketRole.type"` // A39, A39, A39, A39, A39, ...
-	ReceivedMarketDocumentCreatedDateTime   string `xml:"received_MarketDocument.createdDateTime"`    // 2020-08-08T19:54:23Z, 202...
+	ReceivedMarketDocumentCreatedDateTime   string `xml:"received_MarketDocument.createdDateTime"`    // 2020-09-12T00:13:14Z, 202...
 	Reason                                  struct {
 		Chardata string `xml:",chardata"`
 		Code     string `xml:"code"` // 999, 999, 999, 999, 999, ...
@@ -308,7 +255,7 @@ type PublicationMarketDocument struct {
 	XMLName                     xml.Name `xml:"Publication_MarketDocument"`
 	Text                        string   `xml:",chardata"`
 	Xmlns                       string   `xml:"xmlns,attr"`
-	MRID                        string   `xml:"mRID"`           // afc06ccfb7be4cca9880679a7...
+	MRID                        string   `xml:"mRID"`           // abbbeef260884cb9b43858124...
 	RevisionNumber              string   `xml:"revisionNumber"` // 1, 1, 1, 1, 1, 1, 1, 1, 1...
 	Type                        string   `xml:"type"`           // A44, A25, A25, A09, A11, ...
 	SenderMarketParticipantMRID struct {
@@ -321,7 +268,7 @@ type PublicationMarketDocument struct {
 		CodingScheme string `xml:"codingScheme,attr"`
 	} `xml:"receiver_MarketParticipant.mRID"`
 	ReceiverMarketParticipantMarketRoleType string `xml:"receiver_MarketParticipant.marketRole.type"` // A33, A33, A33, A33, A33, ...
-	CreatedDateTime                         string `xml:"createdDateTime"`                            // 2020-08-08T19:54:24Z, 202...
+	CreatedDateTime                         string `xml:"createdDateTime"`                            // 2020-09-12T00:13:15Z, 202...
 	PeriodTimeInterval                      struct {
 		Text  string `xml:",chardata"`
 		Start string `xml:"start"` // 2015-12-31T23:00Z, 2015-1...
@@ -370,7 +317,7 @@ type CriticalNetworkElementMarketDocument struct {
 	XMLName                                 xml.Name `xml:"CriticalNetworkElement_MarketDocument"`
 	Text                                    string   `xml:",chardata"`
 	Xmlns                                   string   `xml:"xmlns,attr"`
-	MRID                                    string   `xml:"mRID"`                                       // ed8553b15e3d41fb880134b05...
+	MRID                                    string   `xml:"mRID"`                                       // 38e3d7b3f58d4fca84249c230...
 	RevisionNumber                          string   `xml:"revisionNumber"`                             // 1
 	Type                                    string   `xml:"type"`                                       // B11
 	ProcessProcessType                      string   `xml:"process.processType"`                        // A01
@@ -378,7 +325,7 @@ type CriticalNetworkElementMarketDocument struct {
 	SenderMarketParticipantMarketRoleType   string   `xml:"sender_MarketParticipant.marketRole.type"`   // A32
 	ReceiverMarketParticipantMRID           string   `xml:"receiver_MarketParticipant.mRID"`            // 10X1001A1001A450
 	ReceiverMarketParticipantMarketRoleType string   `xml:"receiver_MarketParticipant.marketRole.type"` // A33
-	CreatedDateTime                         string   `xml:"createdDateTime"`                            // 2020-08-08T19:54:31Z
+	CreatedDateTime                         string   `xml:"createdDateTime"`                            // 2020-09-12T00:13:23Z
 	TimePeriodTimeInterval                  struct {
 		Text  string `xml:",chardata"`
 		Start string `xml:"start"` // 2015-12-31T23:00Z
@@ -418,6 +365,59 @@ type CriticalNetworkElementMarketDocument struct {
 						} `xml:"PTDF_Domain"`
 					} `xml:"Monitored_RegisteredResource"`
 				} `xml:"Constraint_TimeSeries"`
+			} `xml:"Point"`
+		} `xml:"Period"`
+	} `xml:"TimeSeries"`
+}
+
+type TransmissionNetworkMarketDocument struct {
+	XMLName                     xml.Name `xml:"TransmissionNetwork_MarketDocument"`
+	Text                        string   `xml:",chardata"`
+	Xmlns                       string   `xml:"xmlns,attr"`
+	MRID                        string   `xml:"mRID"`                // 54d07a10e4184f75b405430ca...
+	RevisionNumber              string   `xml:"revisionNumber"`      // 1
+	Type                        string   `xml:"type"`                // A92
+	ProcessProcessType          string   `xml:"process.processType"` // A16
+	CreatedDateTime             string   `xml:"createdDateTime"`     // 2020-09-12T00:13:33Z
+	SenderMarketParticipantMRID struct {
+		Text         string `xml:",chardata"` // 10X1001A1001A450
+		CodingScheme string `xml:"codingScheme,attr"`
+	} `xml:"sender_MarketParticipant.mRID"`
+	SenderMarketParticipantMarketRoleType string `xml:"sender_MarketParticipant.marketRole.type"` // A32
+	ReceiverMarketParticipantMRID         struct {
+		Text         string `xml:",chardata"` // 10X1001A1001A450
+		CodingScheme string `xml:"codingScheme,attr"`
+	} `xml:"receiver_MarketParticipant.mRID"`
+	ReceiverMarketParticipantMarketRoleType string `xml:"receiver_MarketParticipant.marketRole.type"` // A33
+	PeriodTimeInterval                      struct {
+		Text  string `xml:",chardata"`
+		Start string `xml:"start"` // 2016-01-01T00:00Z
+		End   string `xml:"end"`   // 2017-01-01T00:00Z
+	} `xml:"period.timeInterval"`
+	TimeSeries []struct {
+		Text         string `xml:",chardata"`
+		MRID         string `xml:"mRID"`         // 1, 2, 3, 4, 5, 6, 7, 8, 9...
+		BusinessType string `xml:"businessType"` // B03, B03, B03, B03, B03, ...
+		InDomainMRID struct {
+			Text         string `xml:",chardata"` // 10YCZ-CEPS-----N, 10YCZ-C...
+			CodingScheme string `xml:"codingScheme,attr"`
+		} `xml:"in_Domain.mRID"`
+		OutDomainMRID struct {
+			Text         string `xml:",chardata"` // 10YCZ-CEPS-----N, 10YCZ-C...
+			CodingScheme string `xml:"codingScheme,attr"`
+		} `xml:"out_Domain.mRID"`
+		CurveType string `xml:"curveType"` // A01, A01, A01, A01, A01, ...
+		Period    struct {
+			Text         string `xml:",chardata"`
+			TimeInterval struct {
+				Text  string `xml:",chardata"`
+				Start string `xml:"start"` // 2016-01-01T00:00Z, 2016-0...
+				End   string `xml:"end"`   // 2016-02-01T00:00Z, 2016-0...
+			} `xml:"timeInterval"`
+			Resolution string `xml:"resolution"` // P1M, P1M, P1M, P1M, P1M, ...
+			Point      struct {
+				Text     string `xml:",chardata"`
+				Position string `xml:"position"` // 1, 1, 1, 1, 1, 1, 1, 1, 1...
 			} `xml:"Point"`
 		} `xml:"Period"`
 	} `xml:"TimeSeries"`
