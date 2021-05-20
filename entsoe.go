@@ -872,7 +872,6 @@ func (c *EntsoeClient) requestGLMarketDocument(params url.Values) (*GLMarketDocu
 	if err != nil {
 		return nil, err
 	}
-
 	var doc GLMarketDocument
 	err = xml.Unmarshal(data, &doc)
 	if err != nil {
@@ -964,7 +963,9 @@ func (c *EntsoeClient) ConvertGlMarketDocument2Map(r *GLMarketDocument) map[JSON
 		points := period.Point
 		for _, point := range points {
 			quantity, _ := strconv.ParseInt(point.Quantity, 10, 64)
-			res[JSONTime(t)] = quantity
+			value := res[JSONTime(t)]
+			res[JSONTime(t)] = getMaxInt64(value, quantity)
+
 			switch period.Resolution {
 			case "PT15M":
 				t = t.Add(15 * time.Minute)
@@ -1001,7 +1002,9 @@ func (c *EntsoeClient) ConvertGlMarketDocument2Map2(r *GLMarketDocument) map[JSO
 		points := period.Point
 		for _, point := range points {
 			quantity, _ := strconv.ParseInt(point.Quantity, 10, 64)
-			res[JSONTime(t)] = quantity
+			value := res[JSONTime(t)]
+			res[JSONTime(t)] = getMaxInt64(value, quantity)
+
 			switch period.Resolution {
 			case "PT15M":
 				t = t.Add(15 * time.Minute)
@@ -1073,4 +1076,12 @@ func GetSortedTimes(res map[JSONTime]int64) []JSONTime {
 	})
 
 	return timeSlice
+}
+
+func getMaxInt64(a, b int64) int64 {
+	if b > a {
+		return b
+	} else {
+		return a
+	}
 }
